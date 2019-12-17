@@ -1,0 +1,22 @@
+html
+html
+    head
+       title login
+       link(rel="stylesheet",type="text/css", href='/style/form_style.css')
+    body
+       h1 Login Here!
+       form(action ="login", method ="POST")
+          div
+             label(for = "username") username:
+             input(type="text", name = "username" value = "Enter Username")
+          br
+          div
+             label(for = "password") password:
+             input(type="password", name = "pass")
+          br
+          button(type = "submit") Log in
+       p #{message}
+       h2 Add the credential of Admin to login as admin
+       h2
+             a(href=signup_url) No account.......sign up?
+       br

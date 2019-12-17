@@ -1,0 +1,36 @@
+html
+html
+    head
+       title sign up
+       link(rel="stylesheet",type="text/css", href='/style/form_style.css')
+    body
+       h1 Register Yourself!
+       form(action ="user", method ="POST")
+          div
+             label(for = "username") username:
+             input(type="text", name = "username" value = "Enter Username")
+          br
+          div
+             label(for = "password") password:
+             input(type="password", name = "pass")
+          br
+          div
+             label(for = "confirmpassword") Confirm password:
+             input(type="password", name = "cpass")
+          br
+          div
+             label(for = "email") email:
+             input(type="email", name = "email" value = "Enter Email")
+          br
+          div
+             label(for = "role") role:
+             select(name="role")
+                  option buyer
+                  option seller
+                  option admin
+          br
+          button(type = "submit") Sign up
+       p #{message}
+       h2
+           a(href=login_url) Login instead?
+       br

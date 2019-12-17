@@ -1,0 +1,35 @@
+html
+html
+html
+    head
+       title edit items
+       link(rel="stylesheet",type="text/css", href='/style/form_style.css')
+    body
+       h1 Edit Items Here!
+       form(action ="/product/edit", method ="POST")
+          div
+             label(for = "name") name:
+             input(type="text", name = "name", value = item.name readonly)
+          br
+          div
+             label(for = "category") Category:
+             input(type="text", name = "category", value = item.category)
+          br
+          div
+             label(for = "price") Price:
+             input(type="Number", name = "price",step="0.01", value=item.price, min=0)
+          br
+          div
+             label(for = "image") Image Url:
+             input(type="text", name = "img" value = item.image)
+          br
+          div
+             label(for = "desc") Description:
+             textarea(name="desc") #{item.desc}
+          br
+          div
+             label(for = "reviews") Reviews:
+             textarea(name="reviews") #{item.reviews}
+          br
+          button(type = "submit") Done
+       p #{message}

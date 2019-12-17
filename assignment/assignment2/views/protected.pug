@@ -1,0 +1,36 @@
+html
+html
+	head
+		title Product Items list
+		link(rel="stylesheet",type="text/css", href='/style/protected_style.css')
+	body
+		h1 Welcome to the Product Management System
+		h1 Protected Page. Only Authorized User can see
+		h1 Hello #{request.user.role} #{request.user.username} 
+		if(request.user.role == 'seller')
+			a#additems(href='/product/add') add items
+		a#logout(href=logout_url) logout?
+		br
+		table
+			thead
+				th Name
+				th Category
+				th Price(Rs)
+				th description
+				th image
+				th reviews
+				if(request.user.role == 'seller')
+					th action
+			each it in item
+				tr
+					td #{it.name}
+					td #{it.category}
+					td #{it.price}
+					td #{it.desc}
+					td 
+						img(src='/img/'+it.image, alt=it.image,width="70", height="70")
+					td #{it.reviews}
+					if(request.user.role == 'seller')
+						td
+							a(href='/product/edit/'+it.name) Edit
+							a(href='/product/delete/'+it.name) Delete

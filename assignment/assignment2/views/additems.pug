@@ -1,0 +1,34 @@
+html
+html
+    head
+       title add items
+       link(rel="stylesheet",type="text/css", href='/style/form_style.css')
+    body
+       h1 Add Products Here!
+       form(action ="add", method ="POST")
+          div
+             label(for = "name") name:
+             input(type="text", name = "name")
+          br
+          div
+             label(for = "category") Category:
+             input(type="text", name = "category")
+          br
+          div
+             label(for = "price") Price:
+             input(type="Number", name = "price",step="0.01", min=0)
+          br
+          div
+             label(for = "image") Image Url:
+             input(type="text", name = "img", value="default.jpeg")
+          br
+          div
+             label(for = "desc") Description:
+             textarea(name="desc")
+          br
+          div
+             label(for = "reviews") Reviews:
+             textarea(name="reviews")
+          br
+          button(type = "submit") Done
+       p #{message}
