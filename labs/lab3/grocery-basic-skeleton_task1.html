@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JavaScript &amp; jQuery - Chapter 7: Introducing jQuery - Event Object</title>
+    <link rel="stylesheet" href="css/c07.css" />
+  </head>
+  <body>
+    <div id="page">
+      <h1 id="header">List</h1>
+      <h2>Buy groceries</h2>
+      <ul>
+        <li id="one" class="hot"><em>fresh</em> figs</li>
+        <li id="two" class="hot">pine nuts</li>
+        <li id="three" class="hot">honey</li>
+        <li id="four">balsamic vinegar</li>
+      </ul>
+    </div>
+    <script src="js/jquery-1.11.0.js"></script>
+     <script type="text/javascript">
+         
+         $("li").on('click',function()
+         {
+             var date = new Date();
+             var hour = date.getHours();
+             var minute = date.getMinutes();
+             var second = date.getSeconds();
+             var day = date.getDay();
+             var year = date.getFullYear();
+             var month = date.getMonth();
+             var dt = date.getDate();
+             var month_arr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+             var day_arr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+             var result_date = hour + " : " + minute + " : " + second;
+             var result_day = day_arr[day] + " " + month + " " + dt + " " + year;
+          
+        
+         
+             $(".date").remove();
+             $(this).append("<span class='date'>clicked on " + result_day + " " + result_date + "</span>");
+             
+             
+           
+         })
+         
+
+     </script>
+      
+  </body>
+</html>

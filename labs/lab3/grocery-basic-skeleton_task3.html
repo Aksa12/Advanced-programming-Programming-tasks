@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JavaScript &amp; jQuery - Chapter 7: Introducing jQuery - Event Object</title>
+    <link rel="stylesheet" href="css/c07.css" />
+  </head>
+  <body>
+    <div id="page">
+      <h1 id="header">List</h1>
+      <h2>Buy groceries</h2>
+      <ul>
+        <li id="one" class="hot"><em>fresh</em> figs</li>
+        <li id="two" class="hot">pine nuts</li>
+        <li id="three" class="hot">honey</li>
+        <li id="four">balsamic vineger</li>
+          <li id="five">linguine</li>
+          <li id="six">cream</li>
+          <li id="seven">coconut milk</li>
+          <li id="eight">mushrooms</li>
+          <li id="nine">apples</li>
+          <li id="ten">strawberries</li>
+          <li id="eleven">rice crackers</li>
+          <li id="twelve">brie</li>
+          <li id="thirteen">rice</li>
+          <li id="fourteen">vine-ripped tomatoes</li>
+          <li id="fifteen">banana</li>
+          <li id="sixteen">red kidney beans</li>
+          <li id="seventeen">haricot beans</li>
+          <li id="eighteen">lettuce</li>
+          <li id="ninteen">organice brown rice vinegar</li>
+          <li id="twenty">sushi mori</li>
+          <li id="twentyone">garlic</li>
+          <li id="twentytwo">ginger</li>
+          <li id="twentythree">red onions</li>
+          <li id="twentyfour">green tea</li>
+          <li id="twentyfive">green tea</li>
+          <li id="twentysix">green tea</li>
+          <li id="twentyseven">green tea</li>
+          <li id="twentyeigtht">green tea</li>
+          <li id="twentynine">green tea</li>
+          <li id="thirtyone">green tea</li>
+          <li id="thirtytwo">green tea</li>
+          <li id="thirtythree">green tea</li>
+          <li id="thirtyfour">green tea</li>
+          <li id="thirtyfive">green tea</li>
+          <li id="thirtysix">green tea</li>
+          <li id="thirtyseven">green tea</li>
+          <li id="thirtyeight">green tea</li>
+          <li id="thirtynine">green tea</li>
+          <li id="forty">green tea</li>
+          <li id="fortyone">green tea</li>
+          <div id="footer"> @listKing</div>
+          <div class="promotion"></div>
+      </ul>
+    </div>
+    <script src="js/jquery-1.11.0.js"></script>
+     <script type="text/javascript">
+         
+         $(window).on("scroll", function () {
+             var scrollHeight = $(document).height();
+             var scrollPosition = $(window).height() + $(window).scrollTop();
+             if ((scrollHeight - scrollPosition) / scrollHeight === 0)
+             {
+                 $(".promotion").html("");
+                 console.log("hiii");
+                 $(".promotion").html("<img id ='prom_img' src='images/adverlion.png'>BUY LISTING PRO FOR ONLY $1.99");
+             }
+             console.log($(window).scrollTop());
+             console.log($("#footer").offset().top)
+             if ( $(window).scrollTop() <= $("#footer").offset().top - $(window).height()-500)
+             {
+                 console.log("hihihihi");
+                 $(".promotion").html("");
+             }
+            
+             $(".promotion").css(
+                 {
+                     "position": "fixed",
+                     "right": "0px",
+                     "bottom": "0px",
+                      "color":"white"
+
+                 })
+         });
+         
+     </script>
+      
+  </body>
+</html>

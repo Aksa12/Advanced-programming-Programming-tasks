@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Basic Calculator</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<style type="text/css">
+td
+{
+border:1px solid black;
+width: 60px;
+height:40px;
+background-color:bisque;
+}
+#equals
+{
+text-align:center;
+background-color:beige;
+}
+#answer
+{
+background-color:beige;
+}
+</style>
+<body>
+	<h1> Basic Calculator </h1>
+	<table>
+		 <tr><td colspan="4" id="answer"></td></tr>
+		 <tr>
+          		<td class="box1 button" id="multiply" data-num='*'>*</td>
+          		<td class="box1 button" id="divide" data-num='/'>/</td>
+          		<td class="box1 button" id="subtract" data-num='-'>-</td>
+          		<td class="box1 button" id="add" data-num='+'>+</td>
+       		 </tr>
+		 <tr>
+          		<td class="box button" id="dot">.</td>
+          		<td class="box button" data-num='9'>9</td>
+         		<td class="box button" data-num='8'>8</td>
+          		<td class="box button" data-num='7'>7</td>
+      		  </tr>
+      		  <tr>
+         		<td class="box button" data-num='6'>6</td>
+          		<td class="box button" data-num='5'>5</td>
+          		<td class="box button" data-num='4'>4</td>
+         		<td class="box button" data-num='3'>3</td>
+      		  </tr>
+       		  <tr>
+         		<td class="box button" data-num='2'>2</td>
+          		<td class="box button" data-num='1'>1</td>
+         		<td class="box button" data-num='0'> 0</td>
+          		<td class="box button" id="pm">+-</td> 
+       		 </tr>
+      		 <tr>
+          	       <td class="box" id="clear">C</td>
+                       <td class="box button" id="sqr">√</td>
+                       <td class="box button" id="den">1/x</td>
+                       <td class="box button" id="square">x2</td>
+                </tr>
+                <tr>
+                       <td class="box" id="mr">MR</td>
+                       <td class="box" id="m+">M+</td>
+                       <td class="box" id="mc">MC</td>
+                       <td class="box" id="ms">MS</td>
+                </tr>
+		<tr>
+			<td colspan="4" class="box" id="equals">=</td>
+		</tr>
+	</table>
+	<script type="text/javascript">	
+		var button = document.querySelectorAll('.button');;
+		var answer = $("#answer");
+		var clear = $("#clear");
+		var sqr = $("#sqr");
+		var den = $("#den");
+		var square = $("#square");
+		var mr = $("#mr");
+		var mp = $("#m+");
+		var mc = $("#mc");
+		var ms = $("#ms");
+		var pm = $("#pm");
+		var equal = $("#equals");
+		button.forEach(function(btn){
+			btn.addEventListener('click' , function(){
+       				let number = btn.getAttribute('data-num');
+       				$(answer).append(number);
+			});
+    
+		});
+		document.addEventListener('keydown', function(event){
+		if(event.key == 'Enter'){equalHandler();}
+		if(event.key == 'C' || event.key == 'c'){clearHandler();}
+		let arr = ['1','2','3','4','5','6','7','8','9','0' , '+','-','*','/'];
+		if(arr.indexOf(event.key) >= 0){
+			 $(answer).html(event.key);
+		}
+		});
+		$(equal).on('click', equalHandler);
+		function equalHandler(){
+			var a= $(answer).html();
+			let value1 = eval(a);
+			$(answer).html(value1);
+		}
+		$(clear).on('click' , clearHandler);
+		function clearHandler(){
+		$(answer).html("");
+		};
+		$("#dot").on('click',decimal);
+		function decimal()
+		{
+		$(answer).append(".0");
+		}
+		$(sqr).on('click' , squareRoot);
+		function squareRoot() {
+		x = parseInt($(answer).html());
+		$(answer).html(Math.sqrt(x));
+		}
+		$(square).on('click' , square1);
+		function square1(){
+		x = parseInt($(answer).html());
+		$(answer).html(Math.pow(x,2));
+		}
+		$(den).on('click' , denm);
+		function denm(){
+		x = parseInt($(answer).html());
+		$(answer).html(1/x);
+		}
+		var num = 0;
+		$(ms).on('click' , storeNumber);
+		function storeNumber(){
+		num = parseInt($(answer).html());
+		}
+		$(mr).on('click' , readnumber);
+		function readnumber(){
+		$(answer).html(num);
+		}
+		$(mc).on('click' , clearnumber);
+		function clearnumber(){
+		num = 0;
+		}
+		$(mp).on('click' , mplus);
+		function mplus(){
+		num = $(answer).html();
+		}
+		$(pm).on('click' , changeSign);
+		function changeSign()
+		{
+		x = -1*(parseInt($(answer).html()));
+		$(answer).html(x);	
+		}
+	</script>
+</body>
+</html>
