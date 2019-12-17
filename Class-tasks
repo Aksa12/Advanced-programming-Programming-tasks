@@ -1,0 +1,306 @@
+// 1- Navigations
+
+
+import React, {Component} from 'react';
+import {Button, View, Text} from 'react-native';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+
+class HomeScreen extends Component{
+  static navigationOptions = {title:'HomeScreen'}
+  render(){
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Home Screen</Text>
+        <Button title="Go to details" onPress={()=>this.props.navigation.navigate('Details',{name:"Aksa", class:"BSCS 7B", title:"React Native"})} />
+        <Button onPress={()=>this.props.navigation.navigate('MyModal')} title="Go to Modal" />
+      </View>
+    )
+  }
+}
+class DetailsScreen extends Component{
+  static navigationOptions = ({navigation})=>{
+    return {
+     // headerTitle:()=>(<View><Text>{navigation.getParam('title')}</Text></View>),
+      title: navigation.getParam('title'),
+      headerStyle: {
+      backgroundColor: 'beige', border:"2px offset white"
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+      headerRight: ()=>(
+        <Button onPress={navigation.getParam('increaseCount')} title='info' color="black" />
+        ),
+    }
+  }
+  componentDidMount()
+  {
+    this.props.navigation.setParams({increaseCount:this._increaseCount})
+  }
+  state = {
+    count:0
+  }
+  _increaseCount = () => {
+    this.setState({count:this.state.count +1 })
+  }
+  render(){
+    return(
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', margin:40}}>
+        <Text>Details Screen</Text>
+        <Text>Name: {this.props.navigation.state.params.name}</Text>
+        <Text>Class: {this.props.navigation.getParam('class','default')}</Text>
+        <Text>Count: {this.state.count}</Text>
+        <Text>Count Param: {this.props.navigation.getParam('countParam','-1')}</Text>
+        <Button title="Get More Details" onPress={()=>this.props.navigation.push('Details',{name:"Aksa", class:"BSCS 7B", title:"React Native", countParam:this.state.count})} />
+        <Button title="Go to Home" onPress={()=>this.props.navigation.navigate('Home')} />
+        <Button title="Go Back" onPress={()=>this.props.navigation.goBack()} />
+        <Button title="Update the title" onPress={()=>this.props.navigation.setParams({title:'Updated title'})} />
+      </View>
+    )
+  }
+}
+class ModalScreen extends Component {
+  render() {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={{ fontSize: 30 }}>This is a modal!</Text>
+        <Button
+          onPress={() => this.props.navigation.goBack()}
+          title="Dismiss"
+        />
+      </View>
+    );
+  }
+}
+
+const AppNavigator = createStackNavigator(
+  {
+  Home:HomeScreen,
+  Details: DetailsScreen,
+  },
+  {
+    initialRouteName:'Home',
+  }
+  )
+
+  const RootStack = createStackNavigator(
+  {
+    Main: {
+      screen: AppNavigator,
+    },
+    MyModal: {
+      screen: ModalScreen,
+    },
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+  }
+);
+
+const AppContainer =  createAppContainer(RootStack);
+
+export default class App extends Component{
+  render()
+  {
+    return <AppContainer />;
+  }
+}
+
+
+
+// 2- Form handling
+
+import React, { Component } from "react";
+import { Text, View, TextInput, TouchableHighlight } from "react-native";
+//import ValidationComponent from '../index';
+import ValidationComponent from "react-native-form-validator";
+
+class FormTest extends ValidationComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "My name",
+      cms: "00000",
+      dob: "1999-09-27",
+      id: "5",
+      message: ""
+    };
+  }
+  _onPressButton() {
+    let rule = /^[0-9]+$/;
+    let id = this.state.id;
+    if (rule.test(this.state.id)) {
+      this.setState({ message: "" });
+      console.log("hellfo");
+    } else {
+      this.setState({ message: "invalid id" });
+      console.log("hello");
+    }
+    this.validate({
+      name: { minlength: 3, maxlength: 7, required: true },
+      cms: { numbers: true, minlength: 5, maxlength: 5 },
+      dob: { date: "YYYY-MM-DD" }
+    });
+  }
+  render() {
+    return (
+      <View>
+        <TextInput
+          ref={this.name}
+          onChangeText={name => this.setState({ name })}
+          value={this.state.name}
+        />
+        <TextInput
+          ref={this.cms}
+          onChangeText={cms => this.setState({ cms })}
+          value={this.state.cms}
+        />
+        <TextInput
+          ref={this.dob}
+          onChangeText={dob => this.setState({ dob })}
+          value={this.state.dob}
+        />
+        <TextInput
+          ref={this.id}
+          onChangeText={id => this.setState({ id })}
+          value={this.state.id}
+        />
+        {this.isFieldInError("name") &&
+          this.getErrorsInField("name").map(errorMessage => (
+            <Text>{errorMessage}</Text>
+          ))}
+        {this.isFieldInError("cms") &&
+          this.getErrorsInField("cms").map(errorMessage => (
+            <Text>{errorMessage}</Text>
+          ))}
+        {this.isFieldInError("dob") &&
+          this.getErrorsInField("dob").map(errorMessage => (
+            <Text>{errorMessage}</Text>
+          ))}
+
+        <TouchableHighlight onPress={() => this._onPressButton()}>
+          <Text>Submit</Text>
+        </TouchableHighlight>
+        <Text>{this.state.message}</Text>
+      </View>
+    );
+  }
+}
+export default FormTest;
+
+// 3-Multiple flex (Row and Column)
+
+import * as React from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+import Constants from 'expo-constants';
+
+// You can import from local files
+import AssetExample from './components/AssetExample';
+
+// or any pure javascript modules available in npm
+import { Card } from 'react-native-paper';
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+      <View style={styles.containera}>
+      <View style={styles.containera1}>
+        <Text> hi a1
+        </Text>
+      </View>
+      <View style={styles.containera2}>
+        <Text> h1 a2
+        </Text>
+      </View>
+      <View style={styles.containera3}>
+        <Text> hi a3
+        </Text>
+      </View>
+      </View>
+      <View style={styles.containerb}>
+        <View style={[styles.common,styles.containerb1]}>
+        <Text>Red
+        </Text>
+        </View>
+        <View style={[styles.common, styles.containerb2]}>
+          <Text>Blue
+          </Text>
+        </View>
+        <View style={[styles.common, styles.containerb3]}>
+          <Text>purple
+          </Text>
+        </View>
+        <View style={[styles.common, styles.containerb4]}>
+          <Text>Green
+          </Text>
+        </View>
+        <View style={[styles.common, styles.containerb5]}>
+          <Text>Cyan
+          </Text>
+        </View>
+        <View style={[styles.common, styles.containerb6]}>
+          <Text>Yellow
+          </Text>
+        </View>
+      </View>
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    flexDirection:'row',
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: '#ecf0f1',
+    padding: 8,
+  },
+  containera:{
+     flex:2,
+    backgroundColor: 'white',
+  },
+  containera1:{
+     flex:1,
+    backgroundColor: 'white',
+
+  },
+  containera2:{
+     flex:1,
+     
+    backgroundColor: 'pink',
+  },
+  containera3:{
+     flex:1,
+    backgroundColor: 'orange',
+  },
+  common:{
+    flex:1,
+     color: 'white',
+  },
+  containerb:{
+    flex:1,
+    backgroundColor:'silver'
+  },
+  containerb1:{
+      backgroundColor:'red',
+  },containerb2:{
+     backgroundColor:'blue',
+  },containerb3:{
+     backgroundColor:"purple",
+  },
+  containerb4:{
+     backgroundColor:"green",
+  },
+  containerb5:{
+     backgroundColor:"cyan",
+  },
+  containerb6:{
+     backgroundColor:"yellow",
+  },
+});
